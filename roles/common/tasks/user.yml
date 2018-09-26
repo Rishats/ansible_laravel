@@ -1,0 +1,14 @@
+ - name: Create a login user for your VPS
+   tags: system
+   with_dict: "{{ system_user }}"
+   user:
+    name: "{{ item.key }}"
+    password: "{{ system_user.project.user_password }}"
+    groups: # Empty by default, here we give it some groups
+     - sudo
+     - www-data
+    state: present
+    shell: /bin/bash       # Defaults to /bin/bash
+    system: no             # Defaults to no
+    createhome: yes        # Defaults to yes
+    home: /home/{{ item.key }}  # Defaults to /home/<username>

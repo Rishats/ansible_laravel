@@ -21,7 +21,7 @@ Barn also tries to apply some additional security by setting SELinux mode to enf
 Other versions of the distributions listed above might work, but no guarantees given. See testing if you want to try running the distribution of your choice in virtual machines.
 
 ### Installing Ansible
-You can install Ansible by following the [official installation documentation](http://docs.ansible.com/ansible/intro_installation.html). For Windows 10 users, you can use the instructions for Ubuntu after [installing the Linux subsystem](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide). For older Windows version, please [check this tutorial on running Ansible on cygwin](https://www.jeffgeerling.com/blog/running-ansible-within-windows).
+You can install Ansible by following the [official installation documentation](http://docs.ansible.com/ansible/intro_installation.html). For Windows 10 users, you can use the instructions for Ubuntu after [installing the Linux subsystem](https://msdn.microsoft.com/en-us/commandline/wsl/install_guide). For older Windows version, please [check this tutorial on running Ansible on cygwin](https://www.jeffgeerling.com/project/running-ansible-within-windows).
 
 ### Clone the repository
 ```shell
@@ -48,9 +48,9 @@ php_memory_limit: "512M"
 
 # A list of virtual hosts
 virtualhosts:
-  blog:
+  project:
     servernames:
-    - blog.development
+    - project.development
     - someother.development
     run_queue_worker: true
     run_horizon: false
@@ -61,8 +61,8 @@ mysql_root_password: somesecret
 
 # List of MySQL databases
 mysql_databases:
-  blog:
-     mysql_user: blog
+  project:
+     mysql_user: project
      mysql_password: table_password
   someothersite:
      mysql_user: otherdbuser
@@ -70,7 +70,7 @@ mysql_databases:
 ```
 
 ### Create .env templates
-Create .env file templates in the dotenv_templates folder with the name `{{hostname}}.{{virtualhost}}.j2`. For example host centos7-test has a virtualhost called blog so the template should be named `centos7-test.blog.j2`. This is completely optional.
+Create .env file templates in the dotenv_templates folder with the name `{{hostname}}.{{virtualhost}}.j2`. For example host centos7-test has a virtualhost called project so the template should be named `centos7-test.project.j2`. This is completely optional.
 
 ### Securing your host variables
 Since you storing highly confidential information like production database passwords in the host variables and .env templates it is highly recommend that encrypt them with a symmetric AES key. Luckily Ansible has built-in tool for this called Vault. Please [read the Vault documentation](http://docs.ansible.com/ansible/playbooks_vault.html) on how to set it up.
