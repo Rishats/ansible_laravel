@@ -22,7 +22,12 @@
   tags: mysql
   mysql_user: check_implicit_admin=yes name=root host=localhost password={{ mysql_root_password }}
 
-- name: Create MySQL databases
+- name: Create MySQL databases for testing
+  tags: mysql
+  mysql_db: name=testing_{{ item.key }} state=present
+  with_dict: "{{ mysql_databases }}"
+
+- name: Create MySQL databases for production and staging
   tags: mysql
   mysql_db: name={{ item.key }} state=present
   with_dict: "{{ mysql_databases }}"

@@ -2,7 +2,7 @@
    tags: system
    with_dict: "{{ system_user }}"
    user:
-    name: "{{ item.key }}"
+    name: "{{ system_user.project.user_login }}"
     password: "{{ system_user.project.user_password }}"
     groups: # Empty by default, here we give it some groups
      - sudo
@@ -11,4 +11,4 @@
     shell: /bin/bash       # Defaults to /bin/bash
     system: no             # Defaults to no
     createhome: yes        # Defaults to yes
-    home: /home/{{ item.key }}  # Defaults to /home/<username>
+    home: /home/{{ system_user.project.user_login }}  # Defaults to /home/<username>
