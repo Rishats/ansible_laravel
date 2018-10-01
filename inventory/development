@@ -1,7 +1,7 @@
 # file: development
 
 [webservers]
-project ansible_ssh_host=192.168.12.12 ansible_ssh_port=22 ansible_ssh_user=vagrant
+vps_for_laravel_project ansible_ssh_host=192.168.12.12 ansible_ssh_port=22 ansible_ssh_user=vagrant
 
 [mysqlservers]
-project ansible_ssh_host=192.168.12.12 ansible_ssh_port=22 ansible_ssh_user=vagrant
+vps_for_laravel_project ansible_ssh_host=192.168.12.12 ansible_ssh_port=22 ansible_ssh_user=vagrant

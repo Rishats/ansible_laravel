@@ -24,17 +24,17 @@
 
 - name: Create MySQL databases for testing
   tags: mysql
-  mysql_db: name=testing_{{ item.key }} state=present
+  mysql_db: name=testing_{{ item.value.mysql_user }} state=present
   with_dict: "{{ mysql_databases }}"
 
 - name: Create MySQL databases for production and staging
   tags: mysql
-  mysql_db: name={{ item.key }} state=present
+  mysql_db: name={{ item.value.mysql_user }} state=present
   with_dict: "{{ mysql_databases }}"
 
 - name: Create application database user
   tags: mysql
-  mysql_user: name={{ item.value.mysql_user }} host=localhost password={{ item.value.mysql_password }} priv={{ item.key }}.*:ALL
+  mysql_user: name={{ item.value.mysql_user }} host=localhost password={{ item.value.mysql_password }} priv='*.*:ALL'
   with_dict: "{{ mysql_databases }}"
 
 - name: Delete anonymous MySQL server user for {{ ansible_hostname }}
