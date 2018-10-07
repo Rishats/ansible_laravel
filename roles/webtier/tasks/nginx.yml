@@ -10,7 +10,7 @@
   
 - name: Install nginx
   tags: nginx
-  apt: name=nginx state=installed
+  apt: name=nginx state=present
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
 - name: Make sure nginx user exists
@@ -36,7 +36,7 @@
 
 - name: Make sure nginx virtual hosts are configured for testing
   tags: nginx
-  template: src=nginx-virtualhost-testing.conf.j2 dest=/etc/nginx/conf.d/testing.{{ item.key }}.conf
+  template: src=nginx-virtualhost-testing.conf.j2 dest=/etc/nginx/conf.d/testing.{{ item.value.servernames[0] }}.conf
   with_dict: "{{ virtualhosts }}"
   when: enable_ssl|default(false)|bool == false
   notify:
@@ -44,7 +44,7 @@
 
 - name: Make sure nginx virtual hosts are configured for staging
   tags: nginx
-  template: src=nginx-virtualhost-staging.conf.j2 dest=/etc/nginx/conf.d/staging.{{ item.key }}.conf
+  template: src=nginx-virtualhost-staging.conf.j2 dest=/etc/nginx/conf.d/staging.{{ item.value.servernames[0] }}.conf
   with_dict: "{{ virtualhosts }}"
   when: enable_ssl|default(false)|bool == false
   notify:
@@ -52,7 +52,7 @@
 
 - name: Make sure nginx virtual hosts are configured for production
   tags: nginx
-  template: src=nginx-virtualhost-production.conf.j2 dest=/etc/nginx/conf.d/{{ item.key }}.conf
+  template: src=nginx-virtualhost-production.conf.j2 dest=/etc/nginx/conf.d/{{ item.value.servernames[0] }}.conf
   with_dict: "{{ virtualhosts }}"
   when: enable_ssl|default(false)|bool == false
   notify:
@@ -60,7 +60,7 @@
 
 - name: Make sure SSL nginx virtual hosts are configured
   tags: nginx
-  template: src=nginx-ssl-virtualhost.conf.j2 dest=/etc/nginx/conf.d/{{ item.key }}.conf
+  template: src=nginx-ssl-virtualhost.conf.j2 dest=/etc/nginx/conf.d/{{ item.value.servernames[0] }}.conf
   with_dict: "{{ virtualhosts }}"
   when: enable_ssl|default(false)|bool == true
 
@@ -69,19 +69,19 @@
 
 - name: Create public directory for testing
   tags: nginx
-  file: path=/var/www/testing.{{ item.key }}/public state=directory owner=www-data group=www-data mode=0775
+  file: path=/var/www/testing.{{ item.value.servernames[0] }}/public state=directory owner=www-data group=www-data mode=0775
   with_dict: "{{ virtualhosts }}"
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
 - name: Create public directory for staging
   tags: nginx
-  file: path=/var/www/staging.{{ item.key }}/public state=directory owner=www-data group=www-data mode=0775
+  file: path=/var/www/staging.{{ item.value.servernames[0] }}/public state=directory owner=www-data group=www-data mode=0775
   with_dict: "{{ virtualhosts }}"
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
 - name: Create public directory for production
   tags: nginx
-  file: path=/var/www/{{ item.key }}/public state=directory owner=www-data group=www-data mode=0775
+  file: path=/var/www/{{ item.value.servernames[0] }}/public state=directory owner=www-data group=www-data mode=0775
   with_dict: "{{ virtualhosts }}"
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 

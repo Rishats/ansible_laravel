@@ -4,14 +4,14 @@ server {
 
     server_name  {{ item.value.servernames | join(" ") }} {{ ansible_default_ipv4["address"] }} localhost;
 
-    root   /var/www/{{ item.key }}/public;
+    root   /var/www/{{ item.value.servernames[0] }}/public;
     index index.php;
 
-    access_log  /var/log/nginx/{{ item.value.servernames }}-access.log;
-    error_log  /var/log/nginx/{{ item.value.servernames }}-error.log error;
+    access_log  /var/log/nginx/{{ item.value.servernames[0] }}-access.log;
+    error_log  /var/log/nginx/{{ item.value.servernames[0] }}-error.log error;
 
-    ssl_certificate /etc/letsencrypt/live/{{ item.value.servernames }}/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/{{ item.value.servernames }}/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ item.value.servernames[0] }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ item.value.servernames[0] }}/privkey.pem;
     ssl_dhparam /etc/ssl/certs/dhparam.pem;
     
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;

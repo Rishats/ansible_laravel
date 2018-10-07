@@ -1,7 +1,7 @@
 # file: roles/dbtier/tasks/mysql.yml
 - name: Install MySQL
   tags: mysql
-  apt: name=mysql-server state=installed
+  apt: name=mysql-server state=present
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
 - name: Make sure MySQL is running and started on boot
