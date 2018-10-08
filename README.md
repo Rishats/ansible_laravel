@@ -52,17 +52,20 @@ virtualhosts:
     run_horizon: false
     has_scheduled_jobs: true
     
-# MySQL root password
-mysql_root_password: somesecret
-
-# List of MySQL databases
+# MySQL
+mysql_root_password: super-secure-password
 mysql_databases:
-  project:
-     mysql_user: project
-     mysql_password: table_password
-  someothersite:
-     mysql_user: otherdbuser
-     mysql_password: table_password
+  - name: projectname
+    encoding: utf8
+    collation: utf8_general_ci
+  - name: testing.projectname
+    encoding: utf8
+    collation: utf8_general_ci
+mysql_users:
+  - name: projectname
+    host: "%"
+    password: projectname_pwd
+    priv: "example_db.*:ALL"
 
 # User for VPS
 system_user:
