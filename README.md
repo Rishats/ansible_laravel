@@ -63,7 +63,11 @@ mysql_users:
   - name: projectname
     host: "%"
     password: projectname_pwd
-    priv: "example_db.*:ALL"
+    priv: "projectname.*:ALL"
+  - name: testing_projectname
+    host: "%"
+    password: testing_projectname_pwd
+    priv: "testing_projectname.*:ALL"
 
 # User for VPS
 system_user:
