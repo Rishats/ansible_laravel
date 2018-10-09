@@ -14,9 +14,12 @@
   shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
   when: group_exists.stat.exists == false
 
+- name: stop nginx service 
+  service: name=nginx state=stopped 
+
 - name: Install / renew certificates
   tags: letsencrypt
-  shell: certbot certonly --noninteractive --webroot --email {{ letsencrypt_email }} --agree-tos --renew-by-default -w /var/www/{{ item.key }}/public -d {{ item.value.servernames }}
+  shell: certbot certonly --noninteractive --webroot --email {{ letsencrypt_email }} --agree-tos --renew-by-default -w /var/www/{{ item.value.servernames[0] }}/public -d {{ item.value.servernames[0] }} -d www.{{ item.value.servernames[0] }}
   with_dict: "{{ virtualhosts }}"
   notify:
     - Restart nginx

@@ -48,7 +48,7 @@ php_memory_limit: "1024M"
 virtualhosts:
   project:
     servernames:
-    - demo.rihat-sultanov.ru
+    - demo.rishat-sultanov.ru
 
 # MySQL
 mysql_root_password: super-secure-password

@@ -7,3 +7,6 @@
 
 - name: Restart php-fpm (Debian)
   service: name=php7.2-fpm state=restarted
+
+- name: stop nginx service
+  service: name=nginx state=stopped 
