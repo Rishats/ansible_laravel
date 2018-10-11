@@ -58,15 +58,6 @@
   notify:
     - Restart nginx
 
-- name: Make sure SSL nginx virtual hosts are configured
-  tags: nginx
-  template: src=nginx-ssl-virtualhost.conf.j2 dest=/etc/nginx/conf.d/{{ item.value.servernames[0] }}.conf
-  with_dict: "{{ virtualhosts }}"
-  when: enable_ssl|default(false)|bool == true
-
-  notify:
-    - Restart nginx
-
 - name: Create public directory for testing
   tags: nginx
   file: path=/var/www/testing.{{ item.value.servernames[0] }}/public state=directory owner=www-data group=www-data mode=0775

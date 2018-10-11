@@ -9,4 +9,3 @@
 - include: letsencrypt.yml
   when: enable_ssl|default(false)|bool == true
 - include: redis.yml
-
