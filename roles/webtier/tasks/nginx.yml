@@ -39,10 +39,6 @@
   apt: name=apache2-utils state=present
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
-- name: Make sure we can use htpasswd module
-  tags: nginx
-  apt: "pkg=python3-passlib state=present"
-
 - name: Make sure apache2-utils is configured
   tags: nginx
   htpasswd:
