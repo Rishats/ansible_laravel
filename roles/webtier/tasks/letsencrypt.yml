@@ -62,5 +62,10 @@
     special_time: weekly
     job: /usr/bin/certbot renew --post-hook "service nginx restart"
 
-- name: start nginx service
+- name: Kill PID which use 80 port.
+  tags: letsencrypt
+  raw: sudo fuser -k 80/tcp
+
+- name: Start nginx service
+  tags: letsencrypt
   service: name=nginx state=started

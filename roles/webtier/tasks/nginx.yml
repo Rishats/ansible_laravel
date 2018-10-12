@@ -23,6 +23,10 @@
     shell: /bin/false
     system: yes
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+  
+- name: Kill PID which use 80 port.
+  tags: letsencrypt
+  raw: sudo fuser -k 80/tcp
 
 - name: Make sure nginx is running and is started on boot
   tags: nginx
