@@ -44,11 +44,16 @@ php_extra_packages:
 # PHP memory limit
 php_memory_limit: "1024M"
 
-# A list of virtual hosts
+# A list of virtual hosts.
 virtualhosts:
   project:
     servernames:
     - demo.rishat-sultanov.ru
+
+# Auth for testing and staging.
+htpasswd_credentials:
+  login: developer
+  password: developer
 
 # MySQL
 mysql_root_password: super-secure-password

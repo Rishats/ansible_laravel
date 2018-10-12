@@ -34,6 +34,23 @@
   notify:
     - Restart nginx
 
+- name: Install apache2-utils for auth testing and staging.
+  tags: nginx
+  apt: name=apache2-utils state=present
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+
+- name: Make sure we can use htpasswd module
+  tags: nginx
+  apt: "pkg=python3-passlib state=present"
+
+- name: Make sure apache2-utils is configured
+  tags: nginx
+  htpasswd:
+    path: /etc/nginx/.htpasswd
+    name: '{{ htpasswd_credentials.login }}'
+    password: '{{ htpasswd_credentials.password }}'
+  with_dict: "{{ htpasswd_credentials }}"
+
 - name: Make sure nginx virtual hosts are configured for testing
   tags: nginx
   template: src=nginx-virtualhost-testing.conf.j2 dest=/etc/nginx/conf.d/testing.{{ item.value.servernames[0] }}.conf

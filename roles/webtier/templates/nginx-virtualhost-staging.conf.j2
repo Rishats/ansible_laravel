@@ -9,6 +9,8 @@ server {
     error_log  /var/log/nginx/staging.{{ item.value.servernames[0] }}-error.log error;
 
     location / {
+        auth_basic           "Staging";
+        auth_basic_user_file /etc/nginx/.htpasswd; 
         try_files $uri $uri/ /index.php?$args;
         autoindex on;
     }
