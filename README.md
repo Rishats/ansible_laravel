@@ -76,9 +76,8 @@ mysql_users:
 
 # User for VPS
 system_user:
-  project:
-    user_login: projectname
-    user_password: projectname_pwd
+  user_login: projectname
+  user_password: projectname_pwd
 ```
 
 ### Securing your host variables
