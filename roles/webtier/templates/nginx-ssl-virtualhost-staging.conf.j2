@@ -1,5 +1,4 @@
 server {
-    listen       80;
     listen       443 http2 ssl;
 
     server_name  staging.{{ item.value.servernames | join(" ") }} {{ ansible_default_ipv4["address"] }} localhost;
@@ -47,4 +46,14 @@ server {
         fastcgi_read_timeout 1200;
         include fastcgi_params;
     }
+}
+server 
+{
+    if ($host = staging.{{ item.value.servernames[0] }}) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    server_name staging.{{ item.value.servernames[0] }} www.staging.{{ item.value.servernames[0] }};
+    listen 80;
+    return 404; # managed by Certbot
 }
