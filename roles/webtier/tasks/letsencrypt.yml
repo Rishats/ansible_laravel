@@ -63,6 +63,7 @@
     job: /usr/bin/certbot renew --post-hook "service nginx restart"
 
 - name: Kill PID which use 80 port.
+  ignore_errors: yes
   tags: letsencrypt
   raw: sudo fuser -k 80/tcp
 
