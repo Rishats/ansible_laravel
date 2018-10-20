@@ -26,28 +26,6 @@
   tags: letsencrypt
   shell: certbot certonly --nginx --email {{ letsencrypt_email }} --agree-tos --renew-by-default -d {{ item.value.servernames[0] }} -d www.{{ item.value.servernames[0] }}
   with_dict: "{{ virtualhosts }}"
-  
-- name: Install / renew certificates for testing
-  tags: letsencrypt
-  shell: certbot certonly --nginx --email {{ letsencrypt_email }} --agree-tos --renew-by-default -d testing.{{ item.value.servernames[0] }} -d www.testing.{{ item.value.servernames[0] }}
-  with_dict: "{{ virtualhosts }}"
-
-- name: Install / renew certificates for staging
-  tags: letsencrypt
-  shell: certbot certonly --nginx --email {{ letsencrypt_email }} --agree-tos --renew-by-default -d staging.{{ item.value.servernames[0] }} -d www.staging.{{ item.value.servernames[0] }}
-  with_dict: "{{ virtualhosts }}"
-
-- name: Make sure SSL nginx virtual hosts are configured for testing
-  tags: letsencrypt
-  template: src=nginx-ssl-virtualhost-testing.conf.j2 dest=/etc/nginx/conf.d/testing.{{ item.value.servernames[0] }}.conf
-  with_dict: "{{ virtualhosts }}"
-  when: enable_ssl|default(false)|bool == true
-
-- name: Make sure SSL nginx virtual hosts are configured for staging
-  tags: letsencrypt
-  template: src=nginx-ssl-virtualhost-staging.conf.j2 dest=/etc/nginx/conf.d/staging.{{ item.value.servernames[0] }}.conf
-  with_dict: "{{ virtualhosts }}"
-  when: enable_ssl|default(false)|bool == true
 
 - name: Make sure SSL nginx virtual hosts are configured for production
   tags: letsencrypt
