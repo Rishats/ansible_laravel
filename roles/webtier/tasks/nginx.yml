@@ -53,7 +53,7 @@
   with_dict: "{{ virtualhosts }}"
   when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
-- name: ACL access for deployer (/var/www).
+- name: ACL access for {{ system_user.user_login }} (/var/www).
   tags: nginx
   acl:
    path: /var/www
@@ -61,3 +61,18 @@
    state: present
   with_dict: "{{ system_user }}"
 
+- name: ACL access for www-data (/var/www).
+  tags: nginx
+  acl:
+   path: /var/www
+   entry: "u:www-data:rwx"
+   state: present
+  with_dict: "{{ system_user }}"
+
+- name: ACL access for nginx (/var/www).
+  tags: nginx
+  acl:
+   path: /var/www
+   entry: "u:nginx:rwx"
+   state: present
+  with_dict: "{{ system_user }}"
