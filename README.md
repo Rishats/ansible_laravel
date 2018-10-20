@@ -33,13 +33,14 @@ Host variables control some of the aspects how the machine is configured. Store 
 
 ```yaml
 # Let's Encrypt settings
-enable_ssl: false
+enable_ssl: true
 letsencrypt_email: rihasultanov@gmail.com
 
 # Extra PHP packages
 php_extra_packages:
     - php7.2-soap
     - php7.2-intl
+    - php7.2-curl
 
 # PHP memory limit
 php_memory_limit: "1024M"
@@ -48,36 +49,25 @@ php_memory_limit: "1024M"
 virtualhosts:
   project:
     servernames:
-    - demo.rishat-sultanov.ru
-
-# Auth for testing and staging.
-htpasswd_credentials:
-  login: developer
-  password: developer
+    - nicnbk.tk
 
 # MySQL
-mysql_root_password: super-secure-password
+mysql_root_password: pwd
 mysql_databases:
-  - name: projectname
-    encoding: utf8
-    collation: utf8_general_ci
-  - name: testing_projectname
+  - name: nicnbk
     encoding: utf8
     collation: utf8_general_ci
 mysql_users:
-  - name: projectname
+  - name: nicnbk
     host: "%"
-    password: projectname_pwd
-    priv: "projectname.*:ALL"
-  - name: testing_projectname
-    host: "%"
-    password: testing_projectname_pwd
-    priv: "testing_projectname.*:ALL"
+    password: pwd
+    priv: "nicnbk.*:ALL"
 
 # User for VPS
 system_user:
-  user_login: projectname
-  user_password: projectname_pwd
+  user_login: deployer
+  user_password: pwd
+
 ```
 
 ### Securing your host variables
