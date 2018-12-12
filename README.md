@@ -51,11 +51,6 @@ virtualhosts:
     servernames:
     - demo.rishat-sultanov.ru
 
-# Auth for testing and staging.
-htpasswd_credentials:
-  login: developer
-  password: developer
-
 # MySQL
 mysql_root_password: super-secure-password
 mysql_databases:
