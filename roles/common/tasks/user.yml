@@ -19,4 +19,4 @@
 
  - name: Install ACL for deployer.
    tags: system
-   apt: name="nginx" state="present"
+   apt: name="acl" state="present"
