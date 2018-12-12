@@ -40,6 +40,7 @@ letsencrypt_email: rihasultanov@gmail.com
 php_extra_packages:
     - php7.2-soap
     - php7.2-intl
+    - php7.2-curl
 
 # PHP memory limit
 php_memory_limit: "1024M"

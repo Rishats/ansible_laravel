@@ -5,6 +5,7 @@
 - include: php-fpm.yml
 - include: composer.yml
 - include: nginx.yml
+- include: node.yml
 - include: cron.yml
 - include: letsencrypt.yml
   when: enable_ssl|default(false)|bool == true
